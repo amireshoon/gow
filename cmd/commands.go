@@ -29,6 +29,6 @@ var work = &cobra.Command{
 	Short: "Get work by name or id",
 	Long:  `Get work or todo by calling it by name or id`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Hugo Static Site Generator v0.9 -- HEAD", args)
+		gow.Parse()
 	},
 }

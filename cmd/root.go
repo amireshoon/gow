@@ -37,7 +37,11 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&fName, "name", "n", "", "name flag for works and more")
 	rootCmd.PersistentFlags().StringVarP(&fDate, "date", "d", "null", "date flag for works and more")
 	viper.SetDefault("date", nil)
-
+	viper.SetConfigName("gow")
+	viper.AddConfigPath("/etc/gow/")
+	viper.AddConfigPath("$HOME/.gow")
+	viper.AddConfigPath(".")
+	viper.Set("gow_path", "$HOME/work.go")
 	// rootCmd.AddCommand(addCmd)
 	// rootCmd.AddCommand(initCmd)
 }
