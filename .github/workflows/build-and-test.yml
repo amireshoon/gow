@@ -22,4 +22,4 @@ jobs:
       run: go build -v main.go
 
     - name: Test
-      run: go test -v /test/gow_test.go
+      run: go test test/gow_test.go
