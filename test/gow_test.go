@@ -2,16 +2,16 @@ package gow
 
 import (
 	"amireshoon/gow/gow"
+	"reflect"
 	"testing"
 )
 
 func TestRun(t *testing.T) {
 
-	got := gow.Run()
-	want := true
+	got := gow.GetVersion()
 
-	if got != want {
-		t.Errorf("got %t, wanted %t", got, want)
+	if reflect.TypeOf(got).String() != "string" {
+		t.Errorf("got %s, wanted %s", got, reflect.TypeOf(got).String())
 	}
 
 }

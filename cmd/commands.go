@@ -1,10 +1,14 @@
 package cmd
 
 import (
+	"amireshoon/gow/gow"
 	"fmt"
 
 	"github.com/spf13/cobra"
 )
+
+// GowVersion current version of gow
+var GowVersion = "1.0.0"
 
 func init() {
 	rootCmd.AddCommand(versionCmd)
@@ -16,14 +20,14 @@ var versionCmd = &cobra.Command{
 	Short: "Print version number of gow you are using.",
 	Long:  `Print version number of gow you are currently using.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Hugo Static Site Generator v0.9 -- HEAD", args)
+		fmt.Println("gow version ", gow.GetVersion())
 	},
 }
 
 var work = &cobra.Command{
 	Use:   "work",
-	Short: "Add work or get work",
-	Long:  `Add new work or todo or get work by calling it by name`,
+	Short: "Get work by name or id",
+	Long:  `Get work or todo by calling it by name or id`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Hugo Static Site Generator v0.9 -- HEAD", args)
 	},
