@@ -1,9 +1,9 @@
 package main
 
-import "amireshoon/gow/cmd"
+import (
+	"amireshoon/gow/gow"
+)
 
 func main() {
-
-	cmd.Execute()
-
+	gow.Run()
 }
