@@ -1,67 +1,22 @@
 package gow
 
 import (
-	"bufio"
 	"fmt"
 	"io/ioutil"
-	"strings"
 )
-
-type work struct {
-	id     string
-	name   string
-	desc   string
-	isDone bool
-}
-
-var works []work
 
 // Parse : This function parse the main storage
 func Parse() {
 
-	c, err := _load()
+	// c, err := _load()
 
-	if err != nil {
-		panic(err)
-	}
-	prim, sec := getParseKeys()
-	if len(c) >= 0 {
-		fmt.Println(c)
-		scanner := bufio.NewScanner(strings.NewReader(c))
-		level := 0
-		on := ""
-		for scanner.Scan() {
-			fmt.Println("Im in level ", level, " and on ", on)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// content := []byte(c)
+	// a, b, f, k := jsonparser.Get(content, "works")
+	// gh := string(a[:len(a)])
 
-			for _, v := range prim {
-				if scanner.Text() == v+":" {
-				detectLevel:
-					if on != "" && on != v+":" {
-						level--
-						on = v + ":"
-						goto detectLevel
-					}
-					level++
-					on = v + ":"
-				}
-			}
-
-			fmt.Println(scanner.Text())
-			works = append(works, newWork("a", "a", "a", false))
-		}
-		fmt.Println(works, sec, level)
-	}
-
-}
-
-func newWork(id string, name string, desc string, isDone bool) work {
-	w := work{
-		id:     id,
-		name:   name,
-		desc:   desc,
-		isDone: isDone,
-	}
-	return w
 }
 
 func _load() (string, error) {
@@ -88,4 +43,18 @@ openingFile:
 
 func getParseKeys() (primary []string, secondary []string) {
 	return []string{"works", "todos"}, []string{"work", "todo"}
+}
+
+func substr(input string, start int, length int) string {
+	asRunes := []rune(input)
+
+	if start >= len(asRunes) {
+		return ""
+	}
+
+	if start+length > len(asRunes) {
+		length = len(asRunes) - start
+	}
+
+	return string(asRunes[start : start+length])
 }
