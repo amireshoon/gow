@@ -25,7 +25,7 @@ var versionCmd = &cobra.Command{
 }
 
 var work = &cobra.Command{
-	Use:   "work",
+	Use:   "works",
 	Short: "Get work by name or id",
 	Long:  `Get work or todo by calling it by name or id`,
 	Run: func(cmd *cobra.Command, args []string) {

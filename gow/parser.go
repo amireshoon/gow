@@ -3,20 +3,36 @@ package gow
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
+
+	"github.com/gookit/color"
 )
 
 // Parse : This function parse the main storage
 func Parse() {
+	content := `name:this is name:desc:this is some:is_done:yes:name:this is name2:desc:this is some2:is_done:no`
+	res := strings.Split(content, `:`)
+	red := color.FgRed.Render
+	green := color.FgGreen.Render
+	line := ""
+	for p, e := range res {
+		if p%2 == 0 {
+			continue
+		}
 
-	// c, err := _load()
+		if res[p-1] == "is_done" {
+			if e == "yes" {
+				line += `[` + green(`yes`) + `]` + green(e) + "\n"
+			} else {
+				line += `[` + red(`no`) + `]` + e + "\n"
+			}
+		} else {
+			line += res[p-1] + e + "\n"
+		}
 
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// content := []byte(c)
-	// a, b, f, k := jsonparser.Get(content, "works")
-	// gh := string(a[:len(a)])
+	}
 
+	println(line)
 }
 
 func _load() (string, error) {
