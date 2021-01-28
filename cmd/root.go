@@ -13,11 +13,13 @@ var (
 	// Used for flags.
 	cfgFile string
 
-	// Work flags
-	fName string
-	fDate string
+	// Global flags
 
-	rootCmd = &cobra.Command{
+	// DescriptionFlag used to determinate description for some operations like works or todo
+	DescriptionFlag string
+	// PathFlag used to determinate path that command should execute default(.)
+	PathFlag string
+	rootCmd  = &cobra.Command{
 		Use:   "gow",
 		Short: "A work and todo cli tool management",
 		Long: `Gow is a tool for managing adding and showing works and todo
@@ -34,8 +36,8 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gow.yaml)")
-	rootCmd.PersistentFlags().StringVarP(&fName, "name", "n", "", "name flag for works and more")
-	rootCmd.PersistentFlags().StringVarP(&fDate, "date", "d", "null", "date flag for works and more")
+	rootCmd.PersistentFlags().StringVarP(&DescriptionFlag, "desc", "d", "", "Provide a description for current command")
+	rootCmd.PersistentFlags().StringVarP(&PathFlag, "path", "p", ".", "Set operation path for current command")
 	viper.SetDefault("date", nil)
 	viper.SetConfigName("gow")
 	viper.AddConfigPath("/etc/gow/")

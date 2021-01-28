@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"amireshoon/gow/gow"
+	"amireshoon/gow/markdown"
+	"errors"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -14,6 +16,7 @@ func init() {
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(works)
 	rootCmd.AddCommand(_init)
+	rootCmd.AddCommand(mdAdd)
 	works.AddCommand(add)
 }
 
@@ -49,6 +52,20 @@ var _init = &cobra.Command{
 	Short: "Initialize new todo workspace",
 	Long:  `Adds TODO.md if not exists and initialize new workspace`,
 	Run: func(cmd *cobra.Command, args []string) {
-		gow.ParseTodo(".", args...)
+		err := gow.ParseTodo(PathFlag, args[0], DescriptionFlag)
+		if err != nil {
+			fmt.Println(err)
+		}
+	},
+}
+
+var mdAdd = &cobra.Command{
+	Use:   "add [string title]",
+	Short: "Add new todo to TODO.md",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		if !markdown.HasTodo(PathFlag) {
+			return errors.New("This project has no TODO.md.\nTry generating it by gow intit [name] -d [description:optional] -p [path:optional]")
+		}
+		return nil
 	},
 }
