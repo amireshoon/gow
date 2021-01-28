@@ -1,6 +1,7 @@
 package gow
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"strings"
@@ -33,6 +34,24 @@ func Parse() {
 	}
 
 	println(line)
+}
+
+func ParseTodo(path string, args ...string) error {
+
+openingFile:
+	content, err := ioutil.ReadFile(path + "/TODO.md")
+	if err != nil {
+		err := ioutil.WriteFile(path+"/TODO.md", []byte(args[0]), 0755)
+		if err != nil {
+			errors.New("Unable to write TODO.md")
+		}
+		goto openingFile
+	}
+
+	// Convert []byte to string and print to screen
+	text := string(content)
+	fmt.Println(text)
+	return nil
 }
 
 func _load() (string, error) {
