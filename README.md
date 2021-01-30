@@ -9,6 +9,11 @@ Gow is a cli tool helps you to manage add and done jobs and todos easier right w
 $ go run main.go --help
 ```
 
+# How to run tests
+```
+$ go test test/gow_test.go
+```
+
 # Commands
 
 ### Works
