@@ -4,6 +4,11 @@ Gow is a cli tool helps you to manage add and done jobs and todos easier right w
 
 `Still in development`
 
+# How to run it (Development)
+```
+$ go run main.go --help
+```
+
 # Commands
 
 ### Works
