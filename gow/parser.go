@@ -38,11 +38,12 @@ func Parse() {
 
 // ParseTodo Get todo.md content or create if not exists
 // Added a title with content of passed name
-func ParseTodo(path string, args ...string) error {
+func ParseTodo(path string, des string, args ...string) error {
 openingFile:
 	_, err := GetTodo(path)
 	if err != nil {
-		baseContent := "# " + args[0] + " \n\n" + args[1]
+		arg := string(strings.Join(args[:], " "))
+		baseContent := "# " + arg + " \n\n" + des
 		err := ioutil.WriteFile(path+"/TODO.md", []byte(baseContent), 0755)
 		if err != nil {
 			errors.New("Unable to write TODO.md")
@@ -59,6 +60,15 @@ func GetTodo(path string) (string, error) {
 		return "", err
 	}
 	return string(content), nil
+}
+
+func FillTodo(content string, path string) error {
+	err := ioutil.WriteFile(path+"/TODO.md", []byte(content), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+		errors.New("Unable to write file")
+	}
+	return nil
 }
 
 func _load() (string, error) {

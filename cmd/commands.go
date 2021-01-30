@@ -5,6 +5,7 @@ import (
 	"amireshoon/gow/markdown"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -52,7 +53,8 @@ var _init = &cobra.Command{
 	Short: "Initialize new todo workspace",
 	Long:  `Adds TODO.md if not exists and initialize new workspace`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := gow.ParseTodo(PathFlag, args[0], DescriptionFlag)
+
+		err := gow.ParseTodo(PathFlag, DescriptionFlag, args...)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -66,6 +68,13 @@ var mdAdd = &cobra.Command{
 		if !markdown.HasTodo(PathFlag) {
 			return errors.New("This project has no TODO.md.\nTry generating it by gow intit [name] -d [description:optional] -p [path:optional]")
 		}
+		desc := ""
+		if args[0] != "" {
+			desc = string(strings.Join(args[:], " "))
+		} else {
+			desc = DescriptionFlag
+		}
+		markdown.AddTodo(desc, PathFlag)
 		return nil
 	},
 }
