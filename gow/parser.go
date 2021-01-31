@@ -72,6 +72,16 @@ func FillTodo(content string, path string) error {
 	return nil
 }
 
+// FillReadme will fill README.md file
+func FillReadme(content string, path string) error {
+	err := ioutil.WriteFile(path+"/README.md", []byte(content), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+		return errors.New("Unable to write file")
+	}
+	return nil
+}
+
 func _load() (string, error) {
 	p, err := Dir()
 

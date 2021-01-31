@@ -2,4 +2,4 @@
 
 
 - [x] Add function to check this todo
-- [ ] Add todo.md content to readme.md
+- [x] Add todo.md content to readme.md

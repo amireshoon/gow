@@ -4,6 +4,7 @@ import (
 	"amireshoon/gow/gow"
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"strings"
 )
 
@@ -66,4 +67,40 @@ func HasTodo(path string) bool {
 		return false
 	}
 	return true
+}
+
+func loadReadme(path string) (string, error) {
+
+openingFile:
+	content, err := ioutil.ReadFile(path + "/README.md")
+	if err != nil {
+		err := ioutil.WriteFile(path+"README.md", []byte(""), 0755)
+		if err != nil {
+			fmt.Printf("Unable to write file: %v", err)
+		}
+		goto openingFile
+	}
+
+	// Convert []byte to string and print to screen
+	text := string(content)
+	return text, err
+}
+
+// AddToReadme will add TODO.md to bottom of README.md
+func AddToReadme(path string) {
+
+	readme, err := loadReadme(path)
+
+	if err != nil {
+		fmt.Println("Could not read or write into README.md")
+	}
+
+	c, err := gow.GetTodo(path)
+
+	if err != nil {
+		fmt.Println("Could not find TODO.md")
+	}
+
+	readme += "\n" + c + "\n"
+	gow.FillReadme(readme, path)
 }

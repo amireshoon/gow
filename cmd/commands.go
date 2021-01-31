@@ -20,6 +20,7 @@ func init() {
 	rootCmd.AddCommand(_init)
 	rootCmd.AddCommand(mdAdd)
 	rootCmd.AddCommand(mdCheck)
+	rootCmd.AddCommand(mdAddToReadMe)
 	works.AddCommand(add)
 }
 
@@ -88,5 +89,13 @@ var mdCheck = &cobra.Command{
 		i, _ := strconv.Atoi(args[0])
 		markdown.CheckTodo(i, PathFlag)
 		return nil
+	},
+}
+
+var mdAddToReadMe = &cobra.Command{
+	Use:   "readme",
+	Short: "Add TODO.md content to bottom of README.md",
+	Run: func(cmd *cobra.Command, args []string) {
+		markdown.AddToReadme(PathFlag)
 	},
 }
