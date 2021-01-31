@@ -5,6 +5,7 @@ import (
 	"amireshoon/gow/markdown"
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -18,6 +19,7 @@ func init() {
 	rootCmd.AddCommand(works)
 	rootCmd.AddCommand(_init)
 	rootCmd.AddCommand(mdAdd)
+	rootCmd.AddCommand(mdCheck)
 	works.AddCommand(add)
 }
 
@@ -75,6 +77,16 @@ var mdAdd = &cobra.Command{
 			desc = DescriptionFlag
 		}
 		markdown.AddTodo(desc, PathFlag)
+		return nil
+	},
+}
+
+var mdCheck = &cobra.Command{
+	Use:   "check [int index]",
+	Short: "Check existing todo",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		i, _ := strconv.Atoi(args[0])
+		markdown.CheckTodo(i, PathFlag)
 		return nil
 	},
 }
