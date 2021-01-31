@@ -7,10 +7,12 @@ import (
 	"strings"
 )
 
+// AddTitle add or change existing title
 func AddTitle(title string) {
 
 }
 
+// AddTodo adds new todo to TODO.md file
 func AddTodo(desc string, path string) {
 	c, err := gow.GetTodo(path)
 
@@ -26,6 +28,7 @@ func AddTodo(desc string, path string) {
 	}
 }
 
+// CheckTodo checks existing todo
 func CheckTodo(index int, path string) {
 	c, err := gow.GetTodo(path)
 

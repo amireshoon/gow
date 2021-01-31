@@ -46,7 +46,7 @@ openingFile:
 		baseContent := "# " + arg + " \n\n" + des
 		err := ioutil.WriteFile(path+"/TODO.md", []byte(baseContent), 0755)
 		if err != nil {
-			errors.New("Unable to write TODO.md")
+			return errors.New("Unable to write TODO.md")
 		}
 		goto openingFile
 	}
@@ -62,11 +62,12 @@ func GetTodo(path string) (string, error) {
 	return string(content), nil
 }
 
+// FillTodo will fill TODO.md file
 func FillTodo(content string, path string) error {
 	err := ioutil.WriteFile(path+"/TODO.md", []byte(content), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
-		errors.New("Unable to write file")
+		return errors.New("Unable to write file")
 	}
 	return nil
 }
