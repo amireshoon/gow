@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
+	"regexp"
 	"strings"
 )
 
@@ -103,4 +104,21 @@ func AddToReadme(path string) {
 
 	readme += "\n" + c + "\n"
 	gow.FillReadme(readme, path)
+}
+
+func getTodoVersion(path string) (string, error) {
+	c, _ := gow.GetTodo(path)
+
+	scanner := bufio.NewScanner(strings.NewReader(c))
+
+	for scanner.Scan() {
+		r, _ := regexp.Compile(`\(+([a-z A-Z 0-9 :])+\)`)
+		if r.MatchString(scanner.Text()) {
+			s := strings.Split(r.FindString(scanner.Text()), ":")
+			return strings.Replace(s[1], ")", "", -1), nil
+		}
+		break
+	}
+
+	return "", nil
 }
