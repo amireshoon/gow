@@ -44,9 +44,9 @@ func CheckTodo(index int, path string) {
 		line := scanner.Text()
 		if strings.Contains(line, `- [ ] `) {
 			if counter == index {
-				reGeneratedTodo += strings.Replace(line, `- [ ] `, `- [x] `, -1)
+				reGeneratedTodo += strings.Replace(line, `- [ ] `, `- [x] `, -1) + "\n"
 			} else {
-				reGeneratedTodo += line
+				reGeneratedTodo += line + "\n"
 			}
 			counter++
 		} else {
