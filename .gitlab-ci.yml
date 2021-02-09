@@ -1,16 +1,30 @@
-build-job:
-  stage: build
-  script:
-    - echo "Building gow"
-    - go build -v main.go
-    
-test-job:
+image: golang:latest
+
+variables:
+  REPO_NAME: gitlab.com/amirhwsin/gow
+
+
+before_script:
+  - mkdir -p $GOPATH/src/$(dirname $REPO_NAME)
+  - ln -svf $CI_PROJECT_DIR $GOPATH/src/$REPO_NAME
+  - cd $GOPATH/src/$REPO_NAME
+
+stages:
+  - test
+  - build
+  - deploy
+
+format:
   stage: test
   script:
-    - echo "Testing gow_test.go"
-    - go test test/gow_test.go
+    - go fmt $(go list ./... | grep -v /vendor/)
+    - go vet $(go list ./... | grep -v /vendor/)
+    - go test -race $(go list ./... | grep -v /vendor/)
 
-deploy-prod:
-  stage: deploy
+compile:
+  stage: build
   script:
-  - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+    - go build -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/mybinary
+  artifacts:
+    paths:
+      - mybinary
