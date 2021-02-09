@@ -1,0 +1,16 @@
+build-job:
+  stage: build
+  script:
+    - echo "Building gow"
+    - go build -v main.go
+    
+test-job:
+  stage: test
+  script:
+    - echo "Testing gow_test.go"
+    - go test test/gow_test.go
+
+deploy-prod:
+  stage: deploy
+  script:
+  - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
