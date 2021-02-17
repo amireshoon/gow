@@ -4,4 +4,4 @@
 - [x] Add function to check this todo
 - [x] Add todo.md content to readme.md
 
-- [ ] Update README Todo when TODO.md changed
+- [x] Update README Todo when TODO.md changed
