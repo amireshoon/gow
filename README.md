@@ -59,3 +59,5 @@ This command generate a TODO.md file for your given path if not exists that you 
 - [x] Add todo.md content to readme.md
 
 - [x] Update README Todo when TODO.md changed
+
+- [ ] complete works command
