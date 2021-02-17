@@ -125,6 +125,7 @@ func substr(input string, start int, length int) string {
 	return string(asRunes[start : start+length])
 }
 
+// UpdateReadmeWithTodo updates readme when todo.md changes
 func UpdateReadmeWithTodo(path string, newTodo string) {
 	c, _ := GetTodo(path)
 	r, _ := LoadReadme(path)
@@ -155,11 +156,12 @@ func UpdateReadmeWithTodo(path string, newTodo string) {
 
 		rCounter++
 	}
-	// os.Exit((1))
+
 	reReadme += "\n" + newTodo
 	FillReadme(reReadme, path)
 }
 
+// LoadReadme loads readme and returns as string
 func LoadReadme(path string) (string, error) {
 
 openingFile:
@@ -177,6 +179,7 @@ openingFile:
 	return text, err
 }
 
+// Scanner struct used for reversing scanner
 type Scanner struct {
 	r   io.ReaderAt
 	pos int
@@ -184,6 +187,7 @@ type Scanner struct {
 	buf []byte
 }
 
+// NewScanner used to revers old scanner
 func NewScanner(r io.ReaderAt, pos int) *Scanner {
 	return &Scanner{r: r, pos: pos}
 }
@@ -207,6 +211,7 @@ func (s *Scanner) readMore() {
 	}
 }
 
+// Line returns current line that scanner on that
 func (s *Scanner) Line() (line string, start int, err error) {
 	if s.err != nil {
 		return "", 0, s.err
